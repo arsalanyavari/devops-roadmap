@@ -1,0 +1,92 @@
+# devops-roadmap
+just a simple devops road map to being junior devops engineer.
+
+# Table and Content
+- [ ] 1. Learn prograaming language 
+  - Python
+  - Golang
+  - Javascript
+  - Rubby
+- [ ] 2. Server administration
+  - Linux
+  - Unix
+  - Windows
+- [ ] 3. Network and Securitty 
+  - TCP/IP 
+  - Protocols
+    - DNS
+    - HTTP/s
+    - FTP
+    - SSL
+- [ ] 4. Servers 
+  - Webserver
+    - Apache
+    - Nginx
+    - Tomcat
+    - IIS
+    - Jetty
+  - Caching
+    - Redis
+    - Memcache
+  - Database
+    - NoSQL
+      - Mongo DB
+      - Cassandra
+      - AWS dynamodb
+      - Google database
+    - SQL
+      - Oracle DB
+      - MySQL/maria DB
+      - PostgreSQL
+      - Ms-SQL
+- [ ] 5. Infrustructure as code 
+  - Configuration Management
+    - Ansible
+    - Puppet
+    - Chef
+    - Salt Stack
+  - Container
+    - Docker
+    - rkt
+    - LXC
+  - Container Orchestraitor
+    - Kubernetes
+    - Openshift
+    - NoMad
+    - Docker Swarm
+  - infrastructure provisioning
+    - Teraform
+    - AWS Cloudformation
+    - Azure template
+    - Google Deployment Manager
+- [ ] 6. CI/CD
+  - Jenkins
+  - TeamCity
+  - Circle CI
+  - Travis CI
+  - AWS Code Pipline
+  - Google Cloudbuild
+  - Gitlab CI
+  - Bitbucket Pipline
+  - Github Action
+- [ ] 7. Monitorrung Logging 
+  - Monitoring
+    - Zabix
+    - Prometheus
+    - Grafana
+    - DataDog
+    - New Relic
+    - CheckMK
+  - Logging
+    - ELK
+    - Graylog
+    - Splunk
+- [ ] 8. Clouds 
+  - AWS
+  - Azure
+  - GCP
+  - OpenStack
+  - Alicloud
+  - IBM Bluemix
+
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/roadmap.jpg>
