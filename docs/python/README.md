@@ -1,0 +1,35 @@
+# Python
+
+## cheatsheet
+- Basics
+- Built-in functions
+- Control flow
+- Functions
+- List and Tuples
+- Dictionaries
+- Sets
+- Comprehensions
+- Manipulating strings
+- String formatting
+- Regular expressions
+- Files and directory paths
+- Reading and writing files
+- Json and Yaml
+- Exception handling
+- Debugging
+- Args and Kwargs
+- Context manager
+- Main: top level script
+- setup.py
+- Dataclasses
+- Virtual environments
+
+## Standard Library
+- Datetime
+- Itertools
+- Json
+- Random
+- Os
+- Pathlib
+- Shelve
+- Zipfile
