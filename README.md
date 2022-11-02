@@ -89,4 +89,4 @@ just a simple devops road map to being junior devops engineer.
   - Alicloud
   - IBM Bluemix
 
-<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/roadmap.jpg>
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/roadmap.jpg>
