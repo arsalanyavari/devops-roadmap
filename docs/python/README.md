@@ -5,7 +5,7 @@
 - [Built-in functions](Built-in_functions.md)
 - [Control flow](ControlFlow.md)
 - [Functions](Functions.md)
-- List and Tuples
+- [List and Tuples](Python_Lists.md)
 - Dictionaries
 - Sets
 - Comprehensions
