@@ -6,7 +6,7 @@
 - [Control flow](ControlFlow.md)
 - [Functions](Functions.md)
 - [List and Tuples](Python_Lists.md)
-- Dictionaries
+- [Dictionaries](Dictionaries.md)
 - Sets
 - Comprehensions
 - Manipulating strings
