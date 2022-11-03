@@ -9,9 +9,9 @@
 - [Dictionaries](Dictionaries.md)
 - [Sets](sets.md)
 - [Comprehensions](Comprehensions.md)
-- Manipulating strings
+- [Manipulating strings](Manipulating_Strings.md)
 - String formatting
-- Regular expressions
+- [Regular expressions](Regular_Expressions.md)
 - Files and directory paths
 - Reading and writing files
 - Json and Yaml
