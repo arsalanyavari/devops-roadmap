@@ -3,7 +3,7 @@ just a simple devops road map to being junior devops engineer.
 
 # Table and Content
 - [ ] 1. Learn prograaming language 
-  - Python
+  - [Python](docs/python/README.md)
   - Golang
   - Javascript
   - Rubby
