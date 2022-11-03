@@ -4,7 +4,7 @@
 - [Basics](Basics.md)
 - [Built-in functions](Built-in_functions.md)
 - [Control flow](ControlFlow.md)
-- Functions
+- [Functions](Functions.md)
 - List and Tuples
 - Dictionaries
 - Sets
