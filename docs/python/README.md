@@ -7,7 +7,7 @@
 - [Functions](Functions.md)
 - [List and Tuples](Python_Lists.md)
 - [Dictionaries](Dictionaries.md)
-- Sets
+- [Sets](sets.md)
 - Comprehensions
 - Manipulating strings
 - String formatting
