@@ -1,7 +1,7 @@
 # Python
 
 ## cheatsheet
-- Basics
+- [Basics](Basics.md)
 - Built-in functions
 - Control flow
 - Functions
