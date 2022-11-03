@@ -8,7 +8,7 @@
 - [List and Tuples](Python_Lists.md)
 - [Dictionaries](Dictionaries.md)
 - [Sets](sets.md)
-- Comprehensions
+- [Comprehensions](Comprehensions.md)
 - Manipulating strings
 - String formatting
 - Regular expressions
