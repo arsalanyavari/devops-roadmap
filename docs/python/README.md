@@ -10,7 +10,7 @@
 - [Sets](sets.md)
 - [Comprehensions](Comprehensions.md)
 - [Manipulating strings](Manipulating_Strings.md)
-- String formatting
+- [String formatting](string.md)
 - [Regular expressions](Regular_Expressions.md)
 - Files and directory paths
 - Reading and writing files
