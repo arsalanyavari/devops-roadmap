@@ -2,7 +2,7 @@
 
 ## cheatsheet
 - [Basics](Basics.md)
-- Built-in functions
+- [Built-in functions](Built-in_functions.md)
 - Control flow
 - Functions
 - List and Tuples
