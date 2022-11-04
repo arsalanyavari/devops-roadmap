@@ -285,8 +285,9 @@ You can use the built-in function `sorted` to return a new list:
 
 **Tuples vs Lists**
 The key difference between tuples and lists is that, while `tuples` are immutable objects, `lists` are mutable. This means that tuples cannot be changed while the lists can be modified. Tuples are more memory efficient than the lists.
->>> furniture = ('table', 'chair', 'rack', 'shelf')
 ```python
+>>> furniture = ('table', 'chair', 'rack', 'shelf')
+
 >>> furniture[0]
 # 'table'
 
