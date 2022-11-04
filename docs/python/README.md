@@ -16,7 +16,7 @@
 - [Reading and writing files](Reading_and_Writing_Files.md)
 - [Json and Yaml](JSONـandـYAML.md)
 - [Exception handling](Exception_Handling.md)
-- Debugging
+- [Debugging](Debugging.md)
 - Args and Kwargs
 - Context manager
 - Main: top level script
