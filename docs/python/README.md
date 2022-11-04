@@ -13,7 +13,7 @@
 - [String formatting](string.md)
 - [Regular expressions](Regular_Expressions.md)
 - [Files and directory paths](Handling_file_and_directory_Paths.md)
-- Reading and writing files
+- [Reading and writing files](Reading_and_Writing_Files.md)
 - Json and Yaml
 - Exception handling
 - Debugging
