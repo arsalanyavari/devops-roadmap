@@ -15,7 +15,7 @@
 - [Files and directory paths](Handling_file_and_directory_Paths.md)
 - [Reading and writing files](Reading_and_Writing_Files.md)
 - [Json and Yaml](JSONـandـYAML.md)
-- Exception handling
+- [Exception handling](Exception_Handling.md)
 - Debugging
 - Args and Kwargs
 - Context manager
