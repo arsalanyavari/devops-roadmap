@@ -12,7 +12,7 @@
 - [Manipulating strings](Manipulating_Strings.md)
 - [String formatting](string.md)
 - [Regular expressions](Regular_Expressions.md)
-- Files and directory paths
+- [Files and directory paths](Handling_file_and_directory_Paths.md)
 - Reading and writing files
 - Json and Yaml
 - Exception handling
