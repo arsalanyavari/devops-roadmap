@@ -25,7 +25,7 @@
 - [Virtual environments](Virtual_Environment.md)
 
 ## Standard Library
-- Datetime
+- [Datetime](Datetime.md)
 - Itertools
 - Json
 - Random
