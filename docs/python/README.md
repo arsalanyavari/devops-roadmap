@@ -20,7 +20,7 @@
 - [Args and Kwargs](Args_and_Kwargs.md)
 - [Context manager](Context_Manager.md)
 - [Main top level script](Main_top-level_script_environment.md)
-- setup.py
+- [setup.py](Python_setup.py.md)
 - Dataclasses
 - Virtual environments
 
