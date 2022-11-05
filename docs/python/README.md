@@ -26,7 +26,7 @@
 
 ## Standard Library
 - [Datetime](Datetime.md)
-- Itertools
+- [Itertools](Itertools.md)
 - Json
 - Random
 - Os
