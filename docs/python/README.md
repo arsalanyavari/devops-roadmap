@@ -28,7 +28,7 @@
 - [Datetime](Datetime.md)
 - [Itertools](Itertools.md)
 - [Json](Json.md)
-- Random
+- [Random](random.md)
 - Os
 - Pathlib
 - Shelve
