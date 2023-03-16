@@ -8,7 +8,7 @@ just a simple devops road map to being junior devops engineer.
   - [Javascript](docs/js/README.md)
   - Rubby
 - [ ] 2. Server administration
-  - Linux
+  - [Linux](https://github.com/arsalanyavari/persian-basic-linux-tutorial)
   - Unix
   - Windows
 - [ ] 3. Network and Securitty 
@@ -46,7 +46,7 @@ just a simple devops road map to being junior devops engineer.
     - Chef
     - Salt Stack
   - Container
-    - Docker
+    - [Docker](docs/docker/README.md)
     - rkt
     - LXC
   - Container Orchestraitor
