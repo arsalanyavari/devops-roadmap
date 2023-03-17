@@ -2,7 +2,7 @@
 
 
 - [ ] Network configuration: DevOps engineers must understand TCP/IP protocols, addressing, subnetting, and routing to configure network devices like routers, switches, and firewalls. They also need to know how to troubleshoot network connectivity issues.
-  - TCP/IP vs OSI
+  - [TCP/IP vs OSI](TCP-IP_vs_OSI.md)
   - TCP/IP protocols
     - What is protocol?
     - Internet Protocol (IP)
