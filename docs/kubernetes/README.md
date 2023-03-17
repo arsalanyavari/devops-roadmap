@@ -1,0 +1,29 @@
+# Kubernetes (K8S)
+
+- What is Kubernetes & Why we use Kubernetes
+- Installation and Setup
+- Pods
+- Replication Controllers
+- Replica Sets
+- Deployments
+- Services
+- Labels and Selectors
+- Namespaces
+- ConfigMaps
+- Secrets
+- Resource Management
+- Horizontal Pod Autoscaling
+- StatefulSets
+- DaemonSets
+- Jobs
+- CronJobs
+- Volume Management
+- Persistent Volumes
+- Persistent Volume Claims
+- Storage Classes
+- Ingress
+- Network Policies
+- Logging and Monitoring
+- Security
+- Kubernetes API
+- kubectl Commands
