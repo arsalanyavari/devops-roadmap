@@ -69,9 +69,43 @@ WORKDIR /app/
 or
 WORKDIR $APP_HOME
 ```
+*`WORKDIR` command works like cd to the directory in container.*
+
+*in the second line we set current `WORKDIR` by the value of `env` that we set in the `ENV` section.*
 
 7. EXPOSE: It informs you about the exposed ports your application is listening on.
+```docker
+# Example
+EXPOSE 5000         # For example we expose port 5000 for the Flask app (by default)
+```
+>__Warning__ If you don't include the `EXPOSE` command in your Dockerfile, it won't expose any ports by default. **However, this doesn't mean that the ports are inaccessible; you can still map ports from the container to the host using the `-p` flag when running the container**.
+The `EXPOSE` command is simply a way to document which ports your container should listen on, so that users know which ports they need to map when they run the container. It's also used by some tools (like Docker Compose) to help automate port mapping.
+So while it's not strictly necessary to include the `EXPOSE` command in your Dockerfile, it's generally a good idea to do so for documentation purposes.
 
-8. CMD:
+8. CMD: It lets you specify which component is to be run by your image on execution of the container. The format is given as ```CMD ["executable", "param1", "param2", ...]```.
 
-9. ENTRYPOINT:
+>__Note__ One important thing is there should only be one CMD instruction in a Dockerfile. If more than one CMD instruction is present then only the last one will be used during execution.
+
+```docker
+# Example
+CMD ["python3", "app.py"]
+```
+    
+9. ENTRYPOINT: When the main executable is used in this instruction then the parameters provided in `CMD` instruction will be added as parameters to the `ENTRYPOINT` instruction.
+
+```docker
+# Example
+ENTRYPOINT ["java"]
+CMD ["--version"]
+```
+
+>__Note__ The primary difference between `ENTRYPOINT` and `CMD` is that `ENTRYPOINT` sets the main command and `CMD` provides default arguments for that command. When both are present in a Dockerfile, `CMD` will be used as arguments to `ENTRYPOINT`. If no `ENTRYPOINT` is specified in the Dockerfile, then `CMD` becomes the main command.
+
+10. ARG
+11. VOLUME
+12. USER
+13. HEALTHCHECK
+14. LABEL
+15. MAINTAINER
+16. ONBUILD
+17. STOPSIGNAL
