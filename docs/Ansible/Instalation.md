@@ -31,3 +31,11 @@ python3 -m pip install --user https://github.com/ansible/ansible/archive/devel.t
 
 3. Install it by any other method you know :) <br>
 (Exactly www.usethefuckinggoogle.com)
+
+In the last step, enter ```ansible --version``` on your terminal to be sure of Ansible installation.
+
+## After installing the Ansible you have the below commands:
+ansible, ansible-config, ansible-connection, ansible-console, ansible-doc, ansible-galaxy, ansible-inventory, ansible-playbook, ansible-pull, ansible-test, ansible-vault
+
+We will learn some usefull points about the most of the above command in the next documents...
+
