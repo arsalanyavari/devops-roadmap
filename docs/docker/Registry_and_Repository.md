@@ -1,4 +1,7 @@
 # Registry and Repository
+<div align="center">
+  <img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/registry.png align="center">
+</div>
 
 ### Docker registry
 **Docker registry is a service that is storing your docker images.**
@@ -51,3 +54,11 @@ Actually, I want to tell you the definition of Docker repository by comparing it
 **Docker repository is a collection of different docker images with same name, that have different tags.** Tag is alphanumeric identifier of the image within a repository.
 
 For example see https://hub.docker.com/r/library/python/tags/. There are many different tags for the official python image, these tags are all members of the official python repository on the Docker Hub. Docker Hub is a Docker Registry hosted by Docker.
+
+<hr>
+
+Nutshell, look at the below picture to review the contents once again:
+
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/taxonomy-of-docker-registry.png width="100%">
+
+We have Docker registry that saves the Docker images. Each Docker registry contains Docker repositories. After pulling images from registry to local, we can create containers from them. These steps are **two-way**; So all the steps can be done in reverse.
