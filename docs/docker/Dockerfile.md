@@ -2,7 +2,7 @@
 
 ### Dockerfile is actually a file that can be used to create a new image based on what is written in it. Before we continue, what is the need to create a new image??
 
-Assume you have a nodejs or django project. ّIndeed if you have a project, it means you should setup an environment that your project can be executed; So you need to install libraries, set environment variabels, maybe install a program that your project work with, etc...
+Assume you have a nodejs or django project. Indeed if you have a project, it means you should setup an environment that your project can be executed; So you need to install libraries, set environment variabels, maybe install a program that your project work with, etc...
 
 At the first all of us know that for nodejs project it is proper to use `node` Docker image and for django project it is proper to use `python` Docker image (Based on another situations for other projects we should chose the most compatible image to our project).
 
@@ -109,3 +109,5 @@ CMD ["--version"]
 15. MAINTAINER
 16. ONBUILD
 17. STOPSIGNAL
+
+Ok. If you want to know about the best practices to writting a Dockerfile you can take a look at the https://docs.docker.com/develop/develop-images/dockerfile_best-practices.
