@@ -8,7 +8,7 @@
 - [Registry and Repository](Registry_and_Repository.md)
 - [Commands](Commands.md)
 - [Dockerfile](Dockerfile.md)
-- Layers
+- [Layers](Layers.md)
 - Links
 - Volumes
 - Exposing Ports
