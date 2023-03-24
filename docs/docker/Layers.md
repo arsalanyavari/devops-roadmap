@@ -33,7 +33,6 @@ Our Docker images are stored at /var/lib/docker/overlay2. We can retrieve the si
 ```bash
 sudo du -sh -m /var/lib/docker/overlay2
 ```
-As you can see, this amount is very different from the total size of all your containers.
 
 ## Tips:
 use the `docker rmi -f $(docker images -f dangling=true -aq)` command to get rid of dangling images (images with `<none>` REPOSITORY and TAG name).
