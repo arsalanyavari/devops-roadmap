@@ -13,11 +13,16 @@ just a simple devops road map to being junior devops engineer.
   - Windows
 - [ ] 3. Network and Securitty 
   - [TCP/IP](docs/TCP-IP)
-  - Protocols
-    - DNS
-    - HTTP/s
-    - FTP
-    - SSL
+  ‌  <details>
+    <summary>Protocols:</summary>
+    <ul>
+      <li>DNS</li>
+      <li>HTTP/s</li>
+      <li>FTP</li>
+      <li>SSL</li>
+    </ul>
+ </details>
+ 
 - [ ] 4. Servers 
   - Webserver
     - Apache
@@ -41,7 +46,7 @@ just a simple devops road map to being junior devops engineer.
       - Ms-SQL
 - [ ] 5. Infrustructure as code 
   - Configuration Management
-    - Ansible
+    - [Ansible](docs/Ansible/README.md)
     - Puppet
     - Chef
     - Salt Stack
