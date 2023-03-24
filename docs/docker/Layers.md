@@ -37,5 +37,3 @@ As you can see, this amount is very different from the total size of all your co
 
 ## Tips:
 use the `docker rmi -f $(docker images -f dangling=true -aq)` command to get rid of dangling images (images with `<none>` REPOSITORY and TAG name).
-
-Ok. If you want to know about the best practices to writting a Dockerfile you can take a look at the https://docs.docker.com/develop/develop-images/dockerfile_best-practices.
