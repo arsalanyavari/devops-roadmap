@@ -47,6 +47,7 @@ inventory = /path_to_inventory_file/inventory.ini
 ```bash
 ansible-playbook -i /path_to_inventory_file/inventory.ini playbook.yml
 ```
+> *We will learn about `ansible-playbook` in the two next section*
 
 I think it's enough. Lets see everything that we can use in inventory.ini
 ```ini
