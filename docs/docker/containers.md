@@ -1,16 +1,28 @@
-# containers
+# Docker Containers
+
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/container.png with="100%">
+
 As mentioned, containers in Docker refer to a technology that allows you to package and isolate applications with their dependencies into a single, lightweight, and portable executable package called a container. 
 
 ## What is a container in Docker?
-A container in Docker is an isolated environment that contains everything that an application needs to run, such as code, libraries, and dependencies. It is a lightweight and portable executable package that can run consistently across different computing environments.
-Docker containers are created from Docker images, which we will introduce in the next section.
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/docker-container.png align="right" width="20%">
+<p align="justify">
+  A container in Docker is an <b>isolated environment</b> that contains everything that an application needs to run, such as <i>code</i>, <i>libraries</i>, and <i>dependencies</i>. It is a <b>lightweight</b> and <b>portable executable</b> package that can run consistently across different computing environments. Docker containers are created from Docker images, which we will introduce in the next section.
+</p>
 
 ## How do containers work in Docker?
 Containers in Docker use a technology called containerization, which is a method of virtualization that isolates applications from the underlying operating system and other applications on the host machine. This isolation is achieved by creating a separate namespace for each container, which provides a unique view of the system's resources.
 
+# What Difference between Container & VM
+Containers are a lightweight form of virtualization that allows multiple applications to run on a single operating system kernel. Each container includes its own file system, libraries, and configuration files, but shares the host machine's kernel with other containers. This makes containers smaller and faster to start up than VMs, and they require less memory and CPU resources.
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/container-vs-vm.png width="100%">
+
+>__Note__
+> We have different type of virtual machones such as `Bare-metal or native hypervisors`, `Hosted hypervisors`, `Paravirtualization`, `Hardware-assisted`, etc... in the above picture we show Bare-metal virtualization that hypervisor is on the top of the infrustructure.
+
 # How to create a container?
 I will explain all the commands are related to this part in the command section, but for now we can create a container using below command:
-```docker run ${IMAGE_NAME}```
+```docker run [IMAGE_NAME]```
 ```docker run ubuntu```
 We can access to the container that we will learn that later...
 
@@ -40,3 +52,9 @@ or simple form is:
 docker run -it ubuntu bash
 ```
 > __Note__ : The first one run a docker container like your OS distro. In fact, ```cat /etc/os-release | grep NAME | cut -d "\"" -f 2 | head -n 1 | cut -d " " -f 1 | tr '[:upper:]' '[:lower:]'``` command find your os name.
+
+## instructions
+Ok. For using docker commands that related to the containers, you can follow the below text (we will learn about docker commands in the next chapter).
+
+At the first open your terminal and press `docker container --help`. As it said the usage format is `docker container COMMAND`.
+We can create, run, stop, restart, rename, an so on... Also we can kill them, attach to them or something else. I prefer to learn them in docker commands documentation in https://docs.docker.com/engine/reference/commandline/container if you need.
