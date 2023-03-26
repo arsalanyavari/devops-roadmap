@@ -8,6 +8,11 @@ At the first all of us know that for nodejs project it is proper to use `node` D
 
 But each image that I told, are not ready to run our project (for example the on python containers that make from python image must be installed our requirements.txt); so we need set them up. If everytime and on each machine try to make the settings, it will takes your time; In addition, the probability of your making mistake will increase every time you set it up. So it is better to create a new image that has all the features needed by our project and use this image from now on. We got acquainted with creating an image from a running container in the previous step, but here we want to review the basic way of creating images together and learn its important points.
 
+Basically, we save Dockerfiles in the system with the name `Dockerfile`, but it is not necessary that the name must be the same, but if we give it another name, when we are using the build command, we must give it the name in the following format:
+```bash
+docker build -t [IMAGE_NAME]:[TAG] -f [DOCKERFILE_NAME] .
+```
+
 ## Dockerfile instructions
 1. FROM:
 Let’s set a base image in the Dockerfile. The instruction is in the form of ```FROM <base_image>[:tag]```.
@@ -15,6 +20,8 @@ Let’s set a base image in the Dockerfile. The instruction is in the form of ``
 # Example
 FROM ubuntu:20.04
 ```
+
+<br>
 
 2. RUN:
 Let’s you run commands and it’s one of the most used instructions in Dockerfile.
@@ -26,6 +33,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 ```
 
+<br>
+
 3. COPY:
 Helps you copy files and directories to your Docker image. The instruction is in the form of ```COPY <src> <dest>```.
 ```dockerfile
@@ -35,6 +44,8 @@ COPY . .
 COPY app.py /app/
 ```
 *the first one Copy curent directory content to Dockerfiles workdir (workdir is 7th item you will learn)*
+
+<br>
 
 4. ADD:
 Helps you add files and directories to your Docker image. The instruction is in the form of ```ADD <src> <dest>```.
@@ -55,12 +66,16 @@ ADD myapp.tar.gz /app/
 
 > In general, it's recommended to use `COPY` unless you specifically need the additional functionality provided by `ADD`.
 
+<br>
+
 5. ENV:
 Let’s you define environment variables in Dockerfile.
 ```dockerfile
 # Example
 ENV APP_HOME=/app
 ```
+
+<br>
 
 6. WORKDIR: A way to define the working directory for your project.
 ```dockerfile
@@ -73,6 +88,8 @@ WORKDIR $APP_HOME
 
 *in the second line we set current `WORKDIR` by the value of `env` that we set in the `ENV` section.*
 
+<br>
+
 7. EXPOSE: It informs you about the exposed ports your application is listening on.
 ```dockerfile
 # Example
@@ -82,6 +99,8 @@ EXPOSE 5000         # For example we expose port 5000 for the Flask app (by defa
 The `EXPOSE` command is simply a way to document which ports your container should listen on, so that users know which ports they need to map when they run the container. It's also used by some tools (like Docker Compose) to help automate port mapping.
 So while it's not strictly necessary to include the `EXPOSE` command in your Dockerfile, it's generally a good idea to do so for documentation purposes.
 
+<br>
+
 8. CMD: It lets you specify which component is to be run by your image on execution of the container. The format is given as ```CMD ["executable", "param1", "param2", ...]```.
 
 >__Note__ One important thing is there should only be one CMD instruction in a Dockerfile. If more than one CMD instruction is present then only the last one will be used during execution.
@@ -90,7 +109,9 @@ So while it's not strictly necessary to include the `EXPOSE` command in your Doc
 # Example
 CMD ["python3", "app.py"]
 ```
-    
+  
+<br>
+  
 9. ENTRYPOINT: When the main executable is used in this instruction then the parameters provided in `CMD` instruction will be added as parameters to the `ENTRYPOINT` instruction.
 
 ```dockerfile
@@ -100,6 +121,8 @@ CMD ["--version"]
 ```
 
 >__Note__ The primary difference between `ENTRYPOINT` and `CMD` is that `ENTRYPOINT` sets the main command and `CMD` provides default arguments for that command. When both are present in a Dockerfile, `CMD` will be used as arguments to `ENTRYPOINT`. If no `ENTRYPOINT` is specified in the Dockerfile, then `CMD` becomes the main command.
+
+<br>
 
 10. ARG:
 Is used in Dockerfiles to define build-time variables, which can then be passed into the container at build time.
@@ -136,6 +159,8 @@ docker build --build-arg MY_VARIABLE=new_value .
 
 >__Note__ The value of ARG can be set during entering the `docker build` command and it has a default value (it can contain default version for your app); Also the value of ENV will be set from ARGs variable; So it can be different while running the `docker build --build-arg` by different form.
 
+<br>
+
 11. VOLUME:
 This instruction creates a mount point with the specified name and marks it as holding externally mounted volumes from native host or other containers. The VOLUME instruction can be used to provide persistent storage for your container's data or to share data between containers.
 ```dockerfile
@@ -160,6 +185,8 @@ The above command create a docker volume and bind it to the `/app/data` path on 
 > CMD ["nginx", "-g", "daemon off;"]
 > ```
 
+<br>
+
 12. USER:
 It specifies the user context to use when running the commands in the subsequent instructions in the Dockerfile.
 By default, Docker containers run as the root user inside the container's filesystem. This can pose security risks, especially if the container is running untrusted code or services. The USER instruction allows you to specify a non-root user to use when running the container.
@@ -177,6 +204,8 @@ USER username
 > - ERRO[0000] error waiting for container:
 > ```
     
+<br>
+
 13. HEALTHCHECK:
 It specifies how to test a container to see if it's running correctly. The HEALTHCHECK instruction tells Docker how to check the health of a container, and whether or not it should be considered "healthy".
 ```docekrfile
@@ -185,6 +214,8 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=3 CMD curl 
 ```
 
 >__Note__ After runnng a container you can enter the `docker container inspect [CONTAINER_NAME]` and check **State spec**; If it's "Status": "healthy" it means everything might be ok but it's "Status": "unhealthy" it means we have an error in our service. 
+
+<br>
 
 14. LABEL:
 It is allows you to add metadata to your Docker images. Look at the below example:
@@ -202,10 +233,49 @@ because of existance of `$BUILD_DATE` and `$VCS_REF`, you must run the `build` c
 docker build --build-arg  BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") VCS_REF=$(git rev-parse --short HEAD) -t [IMAGE_NAME:TAG] .
 ```
 
-15. MAINTAINER
+The `LABEL` instruction is optional and does not affect the build process or the resulting image.
 
-16. ONBUILD
+<br>
 
-17. STOPSIGNAL
+<img src="https://placehold.co/15x15/f03c15/f03c15.png" width="12" height="12"> ***You can not read this part (item 15) at all and it is like "Do you know?"***
+
+<br>
+
+15. MAINTAINER:
+It is used to provide contact information for the person or organization that created and maintains the image.
+```docekrfile
+MAINTAINER ArsalanYavari <arya48.yavari79@gmail.com>
+```
+The `MAINTAINER` instruction is optional and does not affect the build process or the resulting image.
+
+>__Warning__ The `MAINTAINER` is considered legacy and has been deprecated in favor of the LABEL instruction.
+
+16. ONBUILD:
+This instruction in a Dockerfile adds a trigger instruction to the image that executes when the image is used as the base for another build.
+```dockerfile
+# Example
+ONBUILD RUN echo "You use image blob blob with version blob blob :)"
+```
+
+17. STOPSIGNAL:
+It is specifies the signal to be sent to the container when it needs to stop gracefully. 
+```dockerfile
+# Example
+STOPSIGNAL SIGQUIT
+```
+
+In the below example we set for all containers that will be create from this image, when they will stop, Docker will send the SIGQUIT signal to the Nginx process inside the container, allowing it to finish processing any requests before shutting down gracefully.
+```dockerfile
+FROM nginx:1.22.1
+COPY nginx.conf /etc/nginx/nginx.conf
+STOPSIGNAL SIGQUIT
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+It is soo good to use for some services that need to shutdown safely.
+
+<hr>
+
+## Multistage Dockerfile
 
 Ok. If you want to know about the best practices to writting a Dockerfile you can take a look at the https://docs.docker.com/develop/develop-images/dockerfile_best-practices.
