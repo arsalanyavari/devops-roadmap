@@ -11,7 +11,7 @@ But each image that I told, are not ready to run our project (for example the on
 ## Dockerfile instructions
 1. FROM:
 Let’s set a base image in the Dockerfile. The instruction is in the form of ```FROM <base_image>[:tag]```.
-```docker
+```dockerfile
 # Example
 FROM ubuntu:20.04
 ```
@@ -19,7 +19,7 @@ FROM ubuntu:20.04
 2. RUN:
 Let’s you run commands and it’s one of the most used instructions in Dockerfile.
 `RUN` instruction has two forms, where ```RUN <command>``` is called the shell form and ```RUN ["executable", "param1", "param2"]``` is called the exec form.
-```docker
+```dockerfile
 # Example
 RUN apt-get update && apt-get install -y \
     python3 python3-pip \
@@ -28,24 +28,24 @@ RUN apt-get update && apt-get install -y \
 
 3. COPY:
 Helps you copy files and directories to your Docker image. The instruction is in the form of ```COPY <src> <dest>```.
-```docker
+```dockerfile
 # Example
 COPY . .
 # or
 COPY app.py /app/
 ```
-*the first one Copy curent directory content to dockerfiles workdir (workdir is 7th item you will learn)*
+*the first one Copy curent directory content to Dockerfiles workdir (workdir is 7th item you will learn)*
 
 4. ADD:
 Helps you add files and directories to your Docker image. The instruction is in the form of ```ADD <src> <dest>```.
 
 >__Note__ `ADD` allows you to specify a URL as the source file. This means that you can download a file from the internet and add it to the container directly in one step. `COPY` does not support this functionality.
-```docker
+```dockerfile
 # Example
 ADD https://example.com/file.ext /app/
 ```
 >__Note__ `ADD` also has some additional features, such as being able to automatically unpack compressed files like tarballs and zip files. `COPY` simply copies the files as they are.
-```docker
+```dockerfile
 # Example
 ADD myapp.tar.gz /app/
 ```
@@ -57,13 +57,13 @@ ADD myapp.tar.gz /app/
 
 5. ENV:
 Let’s you define environment variables in Dockerfile.
-```docker
+```dockerfile
 # Example
 ENV APP_HOME=/app
 ```
 
 6. WORKDIR: A way to define the working directory for your project.
-```docker
+```dockerfile
 # Example
 WORKDIR /app/
 or
@@ -74,7 +74,7 @@ WORKDIR $APP_HOME
 *in the second line we set current `WORKDIR` by the value of `env` that we set in the `ENV` section.*
 
 7. EXPOSE: It informs you about the exposed ports your application is listening on.
-```docker
+```dockerfile
 # Example
 EXPOSE 5000         # For example we expose port 5000 for the Flask app (by default)
 ```
@@ -86,14 +86,14 @@ So while it's not strictly necessary to include the `EXPOSE` command in your Doc
 
 >__Note__ One important thing is there should only be one CMD instruction in a Dockerfile. If more than one CMD instruction is present then only the last one will be used during execution.
 
-```docker
+```dockerfile
 # Example
 CMD ["python3", "app.py"]
 ```
     
 9. ENTRYPOINT: When the main executable is used in this instruction then the parameters provided in `CMD` instruction will be added as parameters to the `ENTRYPOINT` instruction.
 
-```docker
+```dockerfile
 # Example
 ENTRYPOINT ["java"]
 CMD ["--version"]
@@ -101,13 +101,111 @@ CMD ["--version"]
 
 >__Note__ The primary difference between `ENTRYPOINT` and `CMD` is that `ENTRYPOINT` sets the main command and `CMD` provides default arguments for that command. When both are present in a Dockerfile, `CMD` will be used as arguments to `ENTRYPOINT`. If no `ENTRYPOINT` is specified in the Dockerfile, then `CMD` becomes the main command.
 
-10. ARG
-11. VOLUME
-12. USER
-13. HEALTHCHECK
-14. LABEL
+10. ARG:
+Is used in Dockerfiles to define build-time variables, which can then be passed into the container at build time.
+
+```dockerfile
+# Example
+ARG NODE_VERSION=14
+FROM node:${NODE_VERSION}
+```
+In this example, we're defining a build-time variable called "NODE_VERSION" with a default value of 14. We're then using that variable to set the base image in our Dockerfile by specifying `FROM node:${NODE_VERSION}`. 
+
+Also we can pass a different value for the NODE_VERSION variable using the --build-arg flag like below command while building an image.
+
+```bash
+docker build --build-arg NODE_VERSION=16 -t node-app .
+```
+
+## What is the difference between Dockerfile ARG and ENV??
+The main difference between ARG and ENV in a Dockerfile is the scope and time of availability of the values they set.
+
+The ENVs variables are accessible in containers that will be created from docker image but ARGs variables can use only during the build process and are not stored in the final image.
+
+The best practice of using Dockerfile ARG and ENV is like below:
+```dockerfile
+ARG MY_VARIABLE=default_value
+
+# Use the variable in other instructions
+ENV MY_ENV_VAR=${MY_VARIABLE}
+RUN echo "My variable is set to ${MY_VARIABLE}"
+```
+```bash
+docker build --build-arg MY_VARIABLE=new_value .
+```
+
+>__Note__ The value of ARG can be set during entering the `docker build` command and it has a default value (it can contain default version for your app); Also the value of ENV will be set from ARGs variable; So it can be different while running the `docker build --build-arg` by different form.
+
+11. VOLUME:
+This instruction creates a mount point with the specified name and marks it as holding externally mounted volumes from native host or other containers. The VOLUME instruction can be used to provide persistent storage for your container's data or to share data between containers.
+```dockerfile
+# Example
+VOLUME /app/data
+```
+The above command create a docker volume and bind it to the `/app/data` path on container each time it create (if you dont bind the directory manually using `docker run -volume` command). So if you store anything on `/app/data` path, they will be store on a docker volume.
+
+>__Note__
+>
+>  The below example is a real usage of VOLUME instruction in Dockerfile
+>
+> ```dockerfile
+> FROM nginx:latest
+>
+> WORKDIR /usr/share/nginx/html
+> EXPOSE 80
+> 
+> VOLUME /usr/share/nginx/html/data
+> 
+> COPY index.html .
+> CMD ["nginx", "-g", "daemon off;"]
+> ```
+
+12. USER:
+It specifies the user context to use when running the commands in the subsequent instructions in the Dockerfile.
+By default, Docker containers run as the root user inside the container's filesystem. This can pose security risks, especially if the container is running untrusted code or services. The USER instruction allows you to specify a non-root user to use when running the container.
+```dockerfile
+# USER <user>[:<group>]
+# Example
+RUN groupadd -r usergroup && useradd --no-log-init -r -g usergroup username
+USER username
+```
+>__Warning__ If you dont specify group and user, then you cant login to the container and give the below Error:
+>
+> ```diff
+> - docker: Error response from daemon: unable to find user myuser: no matching entries in passwd file.
+>
+> - ERRO[0000] error waiting for container:
+> ```
+    
+13. HEALTHCHECK:
+It specifies how to test a container to see if it's running correctly. The HEALTHCHECK instruction tells Docker how to check the health of a container, and whether or not it should be considered "healthy".
+```docekrfile
+# Example
+HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=3 CMD curl --fail http://localhost:3000 || exit 1
+```
+
+>__Note__ After runnng a container you can enter the `docker container inspect [CONTAINER_NAME]` and check **State spec**; If it's "Status": "healthy" it means everything might be ok but it's "Status": "unhealthy" it means we have an error in our service. 
+
+14. LABEL:
+It is allows you to add metadata to your Docker images. Look at the below example:
+```dockerfile
+LABEL version="1.0"
+LABEL maintainer="ArsalanYavari <arya48.yavari79@gmail.com>"
+LABEL description="blob blob blob"
+LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.vcs-url="https://github.com/arsalanyavari/devops-roadmap.git"
+LABEL org.label-schema.vcs-ref=$VCS_REF
+LABEL org.label-schema.license="MIT"
+```
+because of existance of `$BUILD_DATE` and `$VCS_REF`, you must run the `build` command in the below form:
+```bash
+docker build --build-arg  BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") VCS_REF=$(git rev-parse --short HEAD) -t [IMAGE_NAME:TAG] .
+```
+
 15. MAINTAINER
+
 16. ONBUILD
+
 17. STOPSIGNAL
 
 Ok. If you want to know about the best practices to writting a Dockerfile you can take a look at the https://docs.docker.com/develop/develop-images/dockerfile_best-practices.
