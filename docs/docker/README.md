@@ -9,7 +9,7 @@
 - [Commands](Commands.md)
 - [Dockerfile](Dockerfile.md)
 - [Layers](Layers.md)
-- Links
+- [Links](Links.md)
 - Volumes
 - Exposing Ports
 - Tips & Best Practices
