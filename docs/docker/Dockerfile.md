@@ -313,4 +313,6 @@ By using multi-stage Dockerfile, we can have one Dockerfile for the different st
 
 >__Warning__ When using multistage Dockerfiles, each stage creates its own cache layer, which can lead to larger disk usage on the Docker host.
 
+If you want know more about multistages Dokcerfiles you can take a look at https://docs.docker.com/build/building/multi-stage.
+
 Ok. If you want to know about the best practices to writting a Dockerfile you can take a look at the https://docs.docker.com/develop/develop-images/dockerfile_best-practices.
