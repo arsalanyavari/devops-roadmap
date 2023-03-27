@@ -282,4 +282,35 @@ It is soo good to use for some services that need to shutdown safely.
 
 ## Multistage Dockerfile
 
+Multi-stage means to have the FROM command several times in a Dockerfile. Each FROM uses a base image and creates a new stage. In multi stage, we have the ability to copy content from one stage to another, which means that we can skip what we don't need. Multistage Dockerfiles typically start with a base image that contains the necessary tools and libraries for the build process.
+
+```dockerfile
+FROM golang:1.16
+WORKDIR /go/src/github.com/alexellis/href-counter/
+RUN go get -d -v golang.org/x/net/html  
+COPY app.go ./
+RUN CGO_ENABLED=0 go build -a -installsuffix cgo -o app .
+
+FROM alpine:latest  
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=0 /go/src/github.com/alexellis/href-counter/app ./
+CMD ["./app"]
+```
+
+In the above Dockerfile we use multistage Dockerfile; In the second stage we use `/go/src/github.com/alexellis/href-counter/app` file from the stage 0 (first stage). 
+
+### Pay attention the final image is based on alpine so its size is very very small compared with golang images size.
+
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/multistage-dockerfile.png width="100%">
+
+If we have multi stage Dockerfile and we want to run just specific part of it we use `--target` option.
+```bash
+docker build --target [DOCKRFILE_SPEC] [IMAGE_NAME]:[TAG] .
+```
+
+By using multi-stage Dockerfile, we can have one Dockerfile for the different statuses of our project and save our time when outputting from them.
+
+>__Warning__ When using multistage Dockerfiles, each stage creates its own cache layer, which can lead to larger disk usage on the Docker host.
+
 Ok. If you want to know about the best practices to writting a Dockerfile you can take a look at the https://docs.docker.com/develop/develop-images/dockerfile_best-practices.
