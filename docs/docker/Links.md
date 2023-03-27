@@ -32,3 +32,7 @@ The --link option takes the following format:
 ```
 
 Here, `CONTAINER_NAME` is the name or ID of the container you want to link to, and `ALIAS` is an optional alias for the linked container. The alias is used as a DNS hostname for the linked container, so you can reference it by name in your application code.
+
+Unlike docker link that link second container to the first one (second container know the first one but the opposite is not true), if we use docker networks we have something like the below picture. If use docker network, both container could see eachother bydefault like the computers that they are in the same network.
+
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/docker-link.png width="100%">
