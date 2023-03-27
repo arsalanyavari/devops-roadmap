@@ -1,5 +1,7 @@
 # Dockerfile
 
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/dockerfile.jpeg width="100%">
+
 ### Dockerfile is actually a file that can be used to create a new image based on what is written in it. Before we continue, what is the need to create a new image??
 
 Assume you have a nodejs or django project. Indeed if you have a project, it means you should setup an environment that your project can be executed; So you need to install libraries, set environment variabels, maybe install a program that your project work with, etc...
