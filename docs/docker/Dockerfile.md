@@ -209,6 +209,8 @@ USER username
 <br>
 
 13. HEALTHCHECK:
+<img align="right" src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/docker-healthcheck2.jpeg width="40%">
+
 It specifies how to test a container to see if it's running correctly. The HEALTHCHECK instruction tells Docker how to check the health of a container, and whether or not it should be considered "healthy".
 ```docekrfile
 # Example
