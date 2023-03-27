@@ -52,3 +52,6 @@ Options:
   ```
   This section provides a quick reference for the available options and their corresponding functionality. You can get more detailed information on each option by running ```docker <command> --help```, which will show you the option's usage and behavior.
   >__Note__ that not all options are available for every Docker command, and some commands may have additional options that are not listed in the Options section.
+
+### The below picture contains most of the useful docker commands and their flow. 
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/docker-commands-collection.png width="100%">
