@@ -1,5 +1,9 @@
 # Docker Links
 
+<div align="center">
+<img src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/link.png> 
+</div>
+
 >__Warning__
 >
 > Link flag is an old feature in Docker and it may become obsolete, and instead of using link, it is recommended to use user-defined networks to connect containers. Although the links are different from the network, for example
@@ -17,6 +21,8 @@ docker exec -it sql mysql -uroot -ppassword -e "CREATE DATABASE wordpress;"
 
 docker run --name alakiw --link mysql:mysql -p 80:80 -d wordpress
 ```
+
+Then open http://localhost; fillup the fileds with `Database Name: wordpress`, `Username: root`, `Password: password`, `Database Host: localhost` and `Table Prefix: wp_`.
 
 The above command provide secure tunnel for communication of NGINX container with MySQL container; Exactly some environment variables will be set in NGINX container that allow it to connect to the MySQL database.
 
