@@ -315,4 +315,4 @@ By using multi-stage Dockerfile, we can have one Dockerfile for the different st
 
 If you want know more about multistages Dokcerfiles you can take a look at https://docs.docker.com/build/building/multi-stage.
 
-Ok. If you want to know about the best practices to writting a Dockerfile you can take a look at the https://docs.docker.com/develop/develop-images/dockerfile_best-practices.
+Also if you want to know about the best practices to writting a Dockerfile you can take a look at the https://docs.docker.com/develop/develop-images/dockerfile_best-practices.
