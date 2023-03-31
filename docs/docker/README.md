@@ -10,8 +10,8 @@
 - [Dockerfile](Dockerfile.md)
 - [Layers](Layers.md)
 - [Links](Links.md)
-- Volumes
-- Exposing Ports
+- [Volumes](Volumes.md)
+- [Exposing Ports](Exposing_Ports.md)
 - Tips & Best Practices
 - Docker-Compose
 - Security
