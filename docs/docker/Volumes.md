@@ -70,9 +70,24 @@ We have `type`, `source`, `destination` and `readonly` options.
 
 
 <img align="right" src=https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/shared-volume.webp width="50%">
-For binding a volume or path to multiple container you can use the below commands:
 
-## blob blob blob !!!
+For binding a volume or path to multiple container you can use the below commands:
+```bash
+docker volume create [VOLUME_NAME]
+docker run --name container1 -v [VOLUME_NAME]:/path_in_container [IMAGE_NAME]
+docker run --name container2 --volumes-from container1 [IMAGE_NAME]
+docker run --name container3 --volumes-from container1 [IMAGE_NAME]
+```
+
+Or you can create a bind mount between them with a same path.
+
+```bash
+docker run --name container1 -v /path_on_host:/path_in_container [IMAGE_NAME]
+docker run --name container2 -v /path_on_host:/path_in_container [IMAGE_NAME]
+```
+
+>__Note__ It is not recommended to bind the same path to multiple containers in a **read and write mode**, because some containers may read and write something in a file and simultaneity will cause problems. Although new operating systems, this problem has been prevented to a large extent, but it is still not recommended.
+>__Note__ It is also recommended to use Docker volumes instead of binding a path from the host.
 
 ```bash
 mkdir /data
@@ -85,8 +100,6 @@ docker volume create datavolume
 docker run -d --name container1 --mount source=datavolume,target=/path_to_volume image_name
 docker run -d --name container2 --mount source=datavolume,target=/path_to_volume image_name
 ```
-
-# encryption !!!
 
 <hr>
 
