@@ -311,14 +311,11 @@ Example:
   >__Warning__
   Based on the status of your service, the method of backing up and even saving it can be different.
 
-  Shellscript for backup:
   ```bash
   #!/bin/bash
-
   VOLUME_NAME=<volume-name>
   BACKUP_DIR=/path/to/backup
   TIMESTAMP=$(date +%Y%m%d%H%M%S)
-
   docker run --rm -v $VOLUME_NAME:/source -v $BACKUP_DIR:/backup ubuntu tar czvf /backup/$VOLUME_NAME-$TIMESTAMP.tar.gz /source
   ```
 
