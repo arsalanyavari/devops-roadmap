@@ -1,4 +1,4 @@
-![image](https://github.com/arsalanyavari/devops-roadmap/assets/67124852/a1c13689-411e-49d1-871f-fadc912d8ecb)# Tips & Best Practices in Docker
+# Tips & Best Practices in Docker
 
 - **Keep Containers Lightweight:** it is essential for efficient resource utilization and faster deployment. So Choose Minimal Base Images, Use Multi-Stage Builds Minimize Dependencies As You Can, Create Single-Purpose Containers, Remove Unneeded Files, Use .dockerignore File, Avoid Running Unnecessary Services and everything that helps to make your image lighter.
 
@@ -300,13 +300,27 @@ Example:
     #or if you use the compose service you can use the below command
     docker compose logs <service_name>
   ```
-  
-- Docker Security Considerations
 
 - **Backup Docker Data:**
   >__Warning__
-  Never keep a backup on the server because we take a backup so that we have the necessary files in case the server becomes unavailable. If we keep it on the server itself, we will lose the backup when the server becomes unavailable.
-  <img align="right" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstarecat.com%2Fcontent%2Fwp-content%2Fuploads%2Fserver-has-crashed-where-is-my-backup-on-the-server.jpg&f=1&nofb=1&ipt=16b12c00e2519e92ced1585c9aef7321cd5ba69e0b253d1689015e43083b01fc&ipo=images" width="40%">
+  > <img align="right" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstarecat.com%2Fcontent%2Fwp-content%2Fuploads%2Fserver-has-crashed-where-is-my-backup-on-the-server.jpg&f=1&nofb=1&ipt=16b12c00e2519e92ced1585c9aef7321cd5ba69e0b253d1689015e43083b01fc&ipo=images" width="20%">
+  > Never keep a backup on the server because we take a backup so that we have the necessary files in case the server becomes unavailable. If we keep it on the server itself, we will lose the backup when the server becomes unavailable.
+  ```bash
+      0 0 * * * docker-compose exec <your-service-name> sh -c 'tar -czvf /backup/backup-$(date +\%Y\%m\%d\%H\%M\%S).tar.gz /path/to/backup && scp /backup/backup-$(date +\%Y\%m\%d\%H\%M\%S).tar.gz user@remote-server:/remote/path'
+  ```
+  >__Warning__
+  Based on the status of your service, the method of backing up and even saving it can be different.
+
+  Shellscript for backup:
+  ```bash
+  #!/bin/bash
+
+  VOLUME_NAME=<volume-name>
+  BACKUP_DIR=/path/to/backup
+  TIMESTAMP=$(date +%Y%m%d%H%M%S)
+
+  docker run --rm -v $VOLUME_NAME:/source -v $BACKUP_DIR:/backup ubuntu tar czvf /backup/$VOLUME_NAME-$TIMESTAMP.tar.gz /source
+  ```
 
 - Upgrade Docker Regularly
 
@@ -316,17 +330,9 @@ Example:
 
 - Avoid Running Containers as Root
 
-- Use .dockerignore
-
-- Clean Up Unused Resources
-
-- Monitor Resource Utilization
-
 - Limit Container Resource Usage
 
 - Use Healthchecks
-
-- Backup Docker Compose Volumes
 
 - Secure Environment Variables
 
@@ -340,13 +346,7 @@ Example:
 
 - Document Docker Environment
 
-- Avoid Running Multiple Processes in a Single Container
-
 - Use Docker Healthchecks
-
-- Limit Container Capabilities
-
-- Use Docker Build Cache Wisely
 
 - Avoid Storing Sensitive Information in Images
 
@@ -354,12 +354,4 @@ Example:
 
 - Implement Container Restarts
 
-- Monitor Docker Logs
-
 - Docker Image Tagging Strategy
-
-- Avoid Running Unnecessary Services
-
-- Use Docker's Restart Policies
-
-- Monitor Container Resource Usag
