@@ -1,4 +1,4 @@
-# Tips & Best Practices in Docker
+![image](https://github.com/arsalanyavari/devops-roadmap/assets/67124852/a1c13689-411e-49d1-871f-fadc912d8ecb)# Tips & Best Practices in Docker
 
 - **Keep Containers Lightweight:** it is essential for efficient resource utilization and faster deployment. So Choose Minimal Base Images, Use Multi-Stage Builds Minimize Dependencies As You Can, Create Single-Purpose Containers, Remove Unneeded Files, Use .dockerignore File, Avoid Running Unnecessary Services and everything that helps to make your image lighter.
 
@@ -176,7 +176,7 @@ RUN apt-get update && \
   >__Note__
   Indeed the volumes are stored in `/var/lib/docker/volumes/` host path but the task of managing them is with Docker.
 
-- **Limit Container Capabilities**
+- **Limit Container Capabilities**  
   Lets see which Linux Capabilities we have :)
   | Capabilities      | Definition                                                                                                           |
   |-------------------|----------------------------------------------------------------------------------------------------------------------|
@@ -246,17 +246,67 @@ RUN apt-get update && \
     - SYS_CHROOT-capability:
     <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/SYS_CHROOT-capability.png">
   
-- Networking Best Practices
+- **Networking Best Practices:**
+  Instead of relying on the default bridge network, create user-defined networks for your containers. It is provide better isolation, DNS resolution, and control over container communication. With this, you can prevent different containers from communicating with each other, and this helps to increase the security of containers.
+  ```bash
+  docker network create mynetwork
+  docker run --network=mynetwork -d nginx
+  ```
 
-- Avoid Using latest Tag for Images
+  >__Note__
+  > Also you can use user-defined networks on `docker-compose` service.
+  > ```yaml
+  > version: '3'
+  > services:
+  >   web:
+  >     image: nginx
+  >     networks:
+  >       - mynetwork
+  > networks:
+  >   mynetwork:
+  > ```
 
-- Monitor Containers
+  >__Note__
+  > **Limit Network Exposure** Only expose necessary ports to the host or external world. Minimize the attack surface by explicitly specifying which ports need to be accessible.
+  > ```bash
+  > docker run -d -p 127.0.0.1:80:80 nginx
+  > ```
+  > Pay attention that is no need to expose port `X` from container to `0.0.0.0:Y`.
 
-- Manage Container Lifecycles
+Example:
+  
+  >__Warning__
+  > **Avoid Using --link**. While --link is available for container linking, it's considered legacy. Instead, use user-defined networks for more flexible and robust communication.
 
+- **Avoid Using latest Tag for Images:** For the below reasons do not use the `latest` tag:
+    - **Inconsistent Behavior:** The content of the "latest" tag can change at any time if the image is updated by the maintainer. This can result in inconsistent behavior across different deployments and may lead to unexpected issues.
+    - **Difficulty in Rollbacks:** If a new version of an image with the "latest" tag introduces a bug or compatibility issue, rolling back to a previous version becomes difficult or impossible. You may not have control over which specific version of the image is used.
+    - **Security Concerns:** Relying on the "latest" tag means you're always pulling the most recent version of an image from the registry. If a security vulnerability is introduced in a newer version, your containers could be at risk without your knowledge.
+    - **Dependency Breaks:** Updates to the "latest" tag could introduce changes that break dependencies or compatibility with other software components, causing application failures.
+    - **Documentation and Reproducibility:** The lack of version control makes it harder to document which specific image version is used for a deployment, affecting reproducibility and making troubleshooting more complex.
+
+- **Monitor Containers**
+  For monitoring the containers status you can use the below commands:
+  ```bash
+    watch docker ps
+  ```
+  ```bash
+    docker stats <container_name_or_id>
+    # the <container_name_or_id> is optional
+  ```
+  ```bash
+    docker logs <container_name_or_id>
+  
+    #or if you use the compose service you can use the below command
+    docker compose logs <service_name>
+  ```
+  
 - Docker Security Considerations
 
-- Backup Docker Data
+- **Backup Docker Data:**
+  >__Warning__
+  Never keep a backup on the server because we take a backup so that we have the necessary files in case the server becomes unavailable. If we keep it on the server itself, we will lose the backup when the server becomes unavailable.
+  <img align="right" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstarecat.com%2Fcontent%2Fwp-content%2Fuploads%2Fserver-has-crashed-where-is-my-backup-on-the-server.jpg&f=1&nofb=1&ipt=16b12c00e2519e92ced1585c9aef7321cd5ba69e0b253d1689015e43083b01fc&ipo=images" width="40%">
 
 - Upgrade Docker Regularly
 
