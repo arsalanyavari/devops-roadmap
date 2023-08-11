@@ -303,7 +303,7 @@ Example:
 
 - **Backup Docker Data:**
   >__Warning__
-  > <img align="right" src="https://starecat.com/content/wp-content/uploads/server-has-crashed-where-is-my-backup-on-the-server.jpg" width="20%">
+  > <img align="right" src="https://starecat.com/content/wp-content/uploads/server-has-crashed-where-is-my-backup-on-the-server.jpg" width="46%">
   > Never keep a backup on the server because we take a backup so that we have the necessary files in case the server becomes unavailable. If we keep it on the server itself, we will lose the backup when the server becomes unavailable.
   ```bash
       0 0 * * * docker-compose exec <your-service-name> sh -c 'tar -czvf /backup/backup-$(date +\%Y\%m\%d\%H\%M\%S).tar.gz /path/to/backup && scp /backup/backup-$(date +\%Y\%m\%d\%H\%M\%S).tar.gz user@remote-server:/remote/path'
