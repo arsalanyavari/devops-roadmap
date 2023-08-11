@@ -176,8 +176,76 @@ RUN apt-get update && \
   >__Note__
   Indeed the volumes are stored in `/var/lib/docker/volumes/` host path but the task of managing them is with Docker.
 
-- Limit Container Capabilities
+- **Limit Container Capabilities**
+  Lets see which Linux Capabilities we have :)
+  | Capabilities      | Definition                                                                                                           |
+  |-------------------|----------------------------------------------------------------------------------------------------------------------|
+  | CHOWN             | Make arbitrary changes to file UIDs and GIDs                                                                         |
+  | DAC_OVERRIDE      | Bypass file read, write, and execute permission checks                                                               |
+  | FSETID            | Don’t clear set-user-ID and set-group-ID mode bits when a file is modified; set the set-group-ID bit for a file      |
+  | FOWNER            | Bypass permission checks on operations that normally require the file system UID of the process                      |
+  | MKNOD             | Create special files using mknod(2)                                                                                  |
+  | NET_RAW           | Use RAW and PACKET sockets; bind to any address for transparent proxying                                             |
+  | SETGID            | Make arbitrary manipulations of process GIDs and supplementary GID list                                              |
+  | SETUID            | Make arbitrary manipulations of process UIDs                                                                         |
+  | SETFCAP           | Set file capabilities                                                                                                |
+  | SETPCAP           | Grant or remove any capability in the caller’s permitted capability set to or from any other process                 |
+  | NET_BIND_SERVICE  | Bind a socket to Internet domain privileged ports                                                                    |
+  | SYS_CHROOT        | Use chroot(2) to change to a different root directory                                                                |
+  | KILL              | Bypass permission checks for sending signals                                                                         |
+  | AUDIT_WRITE       | Write records to kernel auditing log                                                                                 |
+    
+  1. To drop capabilities from the `root` user of a container.
+     ```bash
+         docker run -it --cap-drop $CAP ubuntu bash
+     ```
+     >__Note__
+     Put Capabilities names from the above table insteda of `$CAP`.
+     
+  2. To add capabilities to the `root` user of a container.
+     ```bash
+         docker run -it --cap-add $CAP ubuntu bash
+     ```
+     >__Note__
+     Put Capabilities names from the above table insteda of `$CAP`.
+     
+  3. To drop all capabilities and then explicitly add individual capabilities to the `root` user of a container.
+     ```bash
+         docker run -it --cap-drop ALL --cap-add $CAP ubuntu bash
+     ```
+     >__Note__
+     Put Capabilities names from the above table insteda of `$CAP`.
+     
+     >__Warning__
+     > Limiting capabilities can cause some processes to crash. So be very careful to use them. If we want to mention some of the advantages of limiting them:
+     >    - Reduced Attack Surface
+     >    - Isolation and Containment
+     >    - Prevention of Unauthorized Access
+     >    - Minimized Exploitation Risk
 
+  Ok. Lets see some example for some of the Capabilities to understand them easier...
+
+    - CHOWN-capability:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/CHOWN-capability.png">
+    
+    - DAC_OVERRIDE-capability:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/DAC_OVERRIDE-capability.png">
+    
+    - FSETID-capability:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/FSETID-capability.png">
+    
+    - NET_RAW-capability:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/NET_RAW-capability.png">
+    
+    - SETGID-capability:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/SETGID-capability.png">
+    
+    - SETUID-capability:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/SETUID-capability.png">
+    
+    - SYS_CHROOT-capability:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/SYS_CHROOT-capability.png">
+  
 - Networking Best Practices
 
 - Avoid Using latest Tag for Images
