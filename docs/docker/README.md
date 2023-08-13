@@ -12,7 +12,7 @@
 - [Links](Links.md)
 - [Volumes](Volumes.md)
 - [Exposing Ports](Exposing_Ports.md)
-- Tips & Best Practices
+- [Tips & Best Practices](Tips-and-Best%20Practices.md)
 - Docker-Compose
 - Security
 - Docker swarm
