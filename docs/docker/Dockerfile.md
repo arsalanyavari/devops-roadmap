@@ -217,6 +217,12 @@ It specifies how to test a container to see if it's running correctly. The HEALT
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=3 CMD curl --fail http://localhost:3000 || exit 1
 ```
 
+You could use the below commands to check the health status of container:
+```bash
+docker ps --filter "health=healthy"
+docker ps --filter "health=unhealthy"
+```
+
 >__Note__ After runnng a container you can enter the `docker container inspect [CONTAINER_NAME]` and check **State spec**; If it's "Status": "healthy" it means everything might be ok but it's "Status": "unhealthy" it means we have an error in our service. 
 
 <br>
