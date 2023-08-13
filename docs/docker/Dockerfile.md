@@ -101,6 +101,20 @@ EXPOSE 5000         # For example we expose port 5000 for the Flask app (by defa
 The `EXPOSE` command is simply a way to document which ports your container should listen on, so that users know which ports they need to map when they run the container. It's also used by some tools (like Docker Compose) to help automate port mapping.
 So while it's not strictly necessary to include the `EXPOSE` command in your Dockerfile, it's generally a good idea to do so for documentation purposes.
 
+<h3> My Experience 💎 </h3>
+If you use `USER` keyword in your `Dockerfile` and want to `bind a port` from the container to the host, you must `EXPOSE` that port in your Dockerfile.
+example:
+
+```yaml
+FROM node:16
+WORKDIR /app
+COMPY package*.json .
+USER node
+COPY . .
+EXPOSE 3000
+ENTRYPOINT ["node", "start"]
+```
+
 <br>
 
 8. CMD: It lets you specify which component is to be run by your image on execution of the container. The format is given as ```CMD ["executable", "param1", "param2", ...]```.
