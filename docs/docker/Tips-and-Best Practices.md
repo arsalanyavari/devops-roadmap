@@ -245,6 +245,9 @@ RUN apt-get update && \
     
     - SYS_CHROOT-capability:
     <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/SYS_CHROOT-capability.png">
+
+  >__Note__
+  Also you can use them in compose format.
   
 - **Networking Best Practices:**
   Instead of relying on the default bridge network, create user-defined networks for your containers. It is provide better isolation, DNS resolution, and control over container communication. With this, you can prevent different containers from communicating with each other, and this helps to increase the security of containers.
@@ -319,15 +322,92 @@ Example:
   docker run --rm -v $VOLUME_NAME:/source -v $BACKUP_DIR:/backup ubuntu tar czvf /backup/$VOLUME_NAME-$TIMESTAMP.tar.gz /source
   ```
 
-- Upgrade Docker Regularly
+- **Upgrade Docker Regularly**  
+  >__Note__
+  I have nothing to explain. Like any other apps, update it so bugs that have been fixed will be OK and you can use its new features.
 
-- Docker Registry Security
+- **Tag and Version Your Images:**  
+  Recomended tagging you image before push to the `Docker Registry`. If you run `docker build -t IMAGE_NAME .` it will automatically assign the `latest` tag to your version and after each pushing to Docker Registry, the last image will be updated with the new one. So you should tag to you version using `-t IMAGE_NAME:VERSION` format.
+  ```bash
+    docker build -t my_image:1.0 .
+    docker tag my_image:1.0 my_image:latest
 
-- Tag and Version Your Images
+    docker push my_image:1.0
+    docker push my_image:latest
+  ```
 
-- Avoid Running Containers as Root
+- **Avoid Running Containers as Root:**
+   If an attacker gains access to a container running as root, its easier for him to escalate his privileges and potentially gain control over the host system.
+   For example if you set `--privileged` option or bind mounting `/` path to the container, the root user can access to you `host name` and `password`.
+   Also containers share the same `kernel` as the host. If a container is running with root privileges, kernel vulnerabilities can be more easily exploited.
+   Besides of that, running a container with sudo user has another problem; for example if an attacker access to your container he has access to Containers Sensitive Directories like /etc, /usr, /var, etc. Also he has permission for Installation or Network Configuration of the container.
 
-- Limit Container Resource Usage
+  Simple example for running container with non root user:
+  ```dockerfile
+  FROM ubuntu:latest
+
+  # Create a non-root user
+  RUN useradd -ms /bin/bash myuser
+  USER myuser
+  ```
+
+- **Limit Container Resource Usage**
+  - CPU Limits  
+    ```
+    docker run -d --cpus=<number> IMAGE_NAME
+
+    #example:
+    docker run -d --cpus="2" ubuntu sleep infinity 
+    ```
+    You can also use the --cpu-shares option to give the container a greater or lesser proportion of CPU cycles. By default, this is set to 1024.
+    ```
+    sudo docker run -it --cpus-shares="700" ubuntu
+    ```
+    >__Note__
+    While you use this options the number of cpu cores in container wont be change (yoou can test it by enter `nproc` inside container) but the OS will manage the containers... Look at the below example:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/CPU-limit.png" >
+
+  - Memory Limits  
+    ```
+    docker run -d --memory=<amount> IMAGE_NAME
+    docker run -d --memory=<amount> --memory-swap=<amount> IMAGE_NAME
+
+    #example:
+    docker run -d --memory=8G --memory-swap=8G ubuntu sleep infinity
+    ```
+    >__Note__
+    Also like the CPU limitation if you enter `free -h` inside the container but look at the below example:
+    <img src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/MEMORY-limit.png" >
+
+  - Disk I/O Limits
+    ```
+    docker run -d --device-read-bps=<device-block:size> --device-write-bps=<device-block:size> IMAGE_NAME
+
+    #example:
+    docker run -d --device-read-bps=/dev/sda:10mb --device-write-bps=/dev/sda:10mb ubuntu sleep infinity
+    # or is you disk is SSD-M2
+    docker run -d --device-read-bps=/dev/nvme0n1:10mb --device-write-bps=/dev/nvme0n1:10mb ubuntu sleep infinity
+    ```
+  - Network Bandwidth Limits
+    >__Note__
+    There isnt any option for this one yes but you can use the below project and have fun :))
+    https://github.com/lukaszlach/docker-tc
+
+  Also you can use them in compose format. example:
+  ```yaml
+  version: "3.8"
+  services:
+    redis:
+      image: ubuntu
+      deploy:
+        resources:
+          limits:
+            cpus: '0.50'
+            memory: 50M
+          reservations:
+            cpus: '0.25'
+            memory: 20M
+  ```        
 
 - Use Healthchecks
 
