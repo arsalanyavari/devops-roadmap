@@ -134,3 +134,146 @@ In this example the workflow will be run for 3 different types of OS then each O
 <img width="100%" src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/githubaction-status.png" >
 
 **Workflow Permissions:** You can control which branches or pull requests trigger your workflows, as well as who can edit or manage them using GitHub's permission settings.
+
+Ok enough. Lets see the below example:
+```yaml
+# This line is necessary and specify the workflow name 
+name: WORKFLOW NAME
+
+
+# In this part you specify when you action must be triggerd
+# In this below example on each pushing to main branch, open a pull request to any branch or pushing to the opened pull request. 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+
+# The below snippet of code specify the build job. As you see the build job will be run on different operating systems. Also we set environment variable (it can be more)
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        node-version: [12.x, 14.x, 16.x, 18.x]
+        versions:
+          - latest
+          - ${{ github.ref_name }}
+
+    env:
+      ENV_VAR: "Hello, GitHub Actions!"
+
+
+# The below part is related to different steps of build job
+# In the first step we use an action named actions/checkout (version 3). You can see all the actions in <github market place>
+# Each action could get some additional values by `with` keyword. This is different for action so you must read each action document that will you use.
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+
+# The below step will setup node based on all node version in the top part of the action (strategy part).
+# There is an equivalent of this action for other languages, you should check GitHub Market place.
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+
+# You can use the below snippet to get knowing about the github action builtin variables and using them inside you action. U suggest you try it :D
+# The `run` instructioon can run all the linux commands that is possible (you can also install package using it)
+      - name: Print actions github builtin variables
+        env:
+            GITHUB_CONTEXT: ${{ toJSON(github.event) }}
+        run: echo "$GITHUB_CONTEXT"
+
+# Below action is use too download a repository assets...
+      - name: Downloading assets
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: 'dsaltares/godot-wild-jam-18'
+          version: 'tags/v0.1.18'
+          regex: true
+          file: "plague-.*\\.zip"
+          target: 'subdir/'
+          token: ${{ secrets.GITHUB_TOKEN }}
+# Also you can use the equivalent it using curl command
+# Using `run` in multiline format
+      - name: Downloading assets V2
+        run: |
+          curl -s https://api.github.com/repos/dsaltares/godot-wild-jam-18/releases/latest | grep "browser_download_url" | cut -d '"' -f 4 | wget -qi-
+          curl -s https://api.github.com/repos/dsaltares/godot-wild-jam-18/releases/latest | grep "zipball_url" | cut -d '"' -f 4 | wget -qi-
+
+
+# Do some jobs based on a condition (use `if`)
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-20.04'
+        run: |
+          sudo apt-get update && sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev
+
+
+# Install or something else you need
+      - name: Building project
+        run: |
+          npm ci
+          npm run test
+          npm run release
+          mkdir output/
+          mv ./out.bin ./output/
+
+
+# The belos snippet use to cache something (Its usual to cache installing packages to do not repeat this step in all jobs of an action)
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            packages/*/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+
+# Also these one store somethig you want (like dist folder) accessible how much you want (the saved items also reachable on other jobs of action)
+      - name: Dist Packages Output artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: ./*/dist
+          retention-days: 30
+
+
+# Below action is used to upload a file to assets (Pay attention this type will use when a release created or published)
+      - name: Upload File to Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./output/out.bin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+# Below steps use for login to Docker Registry and Publish an image
+# I login to Github Registry but you can use this Action to login to Dockerhub also 
+      - name: Login to Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: arsalanyavari
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/arsalanyavari/new_image:${{ matrix.versions }}
+```
+
+Ok enough i think. There are many action in [Actions Marketplace](https://github.com/marketplace?type=actions) that you can use them also you can write your own action.  
+Try to be best one and have fun.
