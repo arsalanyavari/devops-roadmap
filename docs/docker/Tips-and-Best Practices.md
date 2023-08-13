@@ -407,28 +407,45 @@ Example:
           reservations:
             cpus: '0.25'
             memory: 20M
-  ```        
+  ```
 
-- Use Healthchecks
+  If you want to read more about them look at the https://docs.docker.com/config/containers/resource_constraints/ page.
 
-- Secure Environment Variables
+- **Use Healthchecks** check this one on [Dockerfile](Dockerfile.md) section.
 
-- Avoid Using Privileged Mode
+- **Secure Environment Variables**
+  There are different ways to use secrets, but I would like to use them in the Compose service; Ok lets to see the below example:
+  Create a file containing the PostgreSQL password. Let's call it `db_password.txt` and put your database password in it:
+  ```
+  mysecretpassword
+  ```
+  Then use the format in your compose file: 
+  ```yaml
+    version: '3.8'
 
-- Separate Build and Deployment Stages
+    services:
+      postgres:
+        image: postgres:latest
+        environment:
+          POSTGRES_DB: mydb
+          POSTGRES_USER: myuser
+          POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+        secrets:
+          - db_password
 
-- Practice CI/CD with Docker
+    secrets:
+      db_password:
+        file: ./db_password.txt
+  ```
+  >__Note__
+  Pay attention that the secrets will be store on `/run/secrets/` path. Some services like `postgres` have appropriate variable to read from the files but for the other servoces you must use some solutions like using appropriate `entrypoint` to use the values of secrets.
 
-- Consider Container Security Scanning
+  >__Note__
+  One of the important points about secrets is not give write and change the secret file for the container.
 
-- Document Docker Environment
+- **Avoid Using Privileged Mode:**
+  <img align="right" src="https://github.com/arsalanyavari/devops-roadmap/blob/main/src/images/docker-privileged-mode-explained.png" width="30%"> 
+  By adding this option while running a container, the container will has all permissions like the host. The `network interfaces` of container will be same as the host interfaces. Also it will has access to all `/dev` devices...  
+  <h2> Never use this option (not at all) ⚠️ </h2> 
 
-- Use Docker Healthchecks
-
-- Avoid Storing Sensitive Information in Images
-
-- Use Docker Secrets
-
-- Implement Container Restarts
-
-- Docker Image Tagging Strategy
+>__Warning__ In addition to these, there are many other things that I don't have in mind right now or I don't think they are important, but depending on your service, you should always search to know and apply some of them that you think existance of them is better than their absence.
