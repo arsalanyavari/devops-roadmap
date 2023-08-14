@@ -70,11 +70,11 @@ Let's take a look at the below playbook and get to know it:
 The above playbook has 3 plays (Install and configure nginx on webservers hosts, Install and configure postgre on databases hosts, Configure firewall on all hosts). Ok lets explain each part of each play...
 
 - First play: Install and Configure Nginx
-  - 
+  
 - Second Play: Install and Configure Postgre
-  - 
+  
 - Third Play: Configure ufw
-  -
+  
 
 <hr>
 
