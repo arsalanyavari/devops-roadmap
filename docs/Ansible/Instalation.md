@@ -30,7 +30,7 @@ python3 -m pip install --user https://github.com/ansible/ansible/archive/devel.t
 ```
 
 3. Install it by any other method you know :) <br>
-(Exactly www.usethefuckinggoogle.com)
+(you can use www.google.com to solve your problem)
 
 In the last step, enter ```ansible --version``` on your terminal to be sure of Ansible installation.
 
