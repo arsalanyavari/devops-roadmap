@@ -71,7 +71,7 @@ just a simple devops road map to being junior devops engineer.
   - Travis CI
   - AWS Code Pipline
   - Google Cloudbuild
-  - Gitlab CI
+  - [Gitlab CI](docs/Gitlab-CI/README.md)
   - Bitbucket Pipline
   - [Github Action](docs/Github-Action/README.md)
 - [ ] 7. Monitorrung Logging 
