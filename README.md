@@ -8,7 +8,13 @@ just a simple devops road map to being junior devops engineer.
   - [Javascript](docs/js/README.md)
   - Rubby
 - [ ] 2. Server administration
-  - [Linux](https://github.com/arsalanyavari/persian-basic-linux-tutorial)
+  - Linux
+    - [basic linux command in فارسی](https://github.com/arsalanyavari/persian-basic-linux-tutorial)
+    - [Bash Scripting (necessary) [Video in فارسی]](https://www.youtube.com/playlist?list=PLsKi5tY0PdoKAFEfEz0T-M61Gq9Mpe8qE)
+    - [LPIC1 (necessary) [GitBook]](https://borosan.gitbook.io/lpic1-exam-guide/) - This content was not created by me
+    - [LPIC2 (optional) [GitBook]](https://borosan.gitbook.io/lpic2-exam-guide/)  - This content was not created by me
+    - [LPIC3 (optional) [GitBook]](https://borosan.gitbook.io/lpic3-exam-guide/)  - This content was not created by me
+    - [Linux Hardening (optional) [Video in فارسی]](https://www.youtube.com/playlist?list=PLsKi5tY0PdoLvAHwMqjHI4F9a1rDFtV8B)
   - Unix
   - Windows
 - [ ] 3. Network and Securitty 
@@ -52,8 +58,9 @@ just a simple devops road map to being junior devops engineer.
     - Salt Stack
   - Container
     - [Docker](docs/docker/README.md)
+      - [Docker ‌Beginner Level [Video in فارسی]](https://www.youtube.com/playlist?list=PLsKi5tY0PdoL3N8DYwyTmkH5HHUYyC--o)
     - rkt
-    - LXC
+    - LXC Video in فارسی
   - Container Orchestraitor
     - Kubernetes
     - Openshift
@@ -74,6 +81,7 @@ just a simple devops road map to being junior devops engineer.
   - [Gitlab CI](docs/Gitlab-CI/README.md)
   - Bitbucket Pipline
   - [Github Action](docs/Github-Action/README.md)
+    - [Github Action [Video in فارسی]](https://www.youtube.com/playlist?list=PLsKi5tY0PdoL7W0OwhohKjyG_E5-WEzq7)
 - [ ] 7. Monitorrung Logging 
   - Monitoring
     - Zabix
